@@ -1,0 +1,114 @@
+<html>
+    <head>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript">
+            //****************************************************** CURVE CHART ******************************************************//
+            //---------------------------------- SEZIONE DI CARICAMENTO DATI DALLA REPOSITORY GitHub ----------------------------------//            
+            var dataCurveChart=[
+                ['Day','Casi Totali']
+            ];
+
+            function loadCurveChartData(data){
+                for(var ir=0;ir<data.length;ir++){
+                    dataCurveChart.push([
+                        data[ir]['data'].substring(0,10),
+                        data[ir]['totale_casi']
+                    ]);                
+                }
+            }
+
+            $.getJSON("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale.json",function(data){
+                loadCurveChartData(data);
+            });
+            //--------------------------------------------------- COSTRUZIONE GRAFICO -------------------------------------------------//
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawCurveChart);
+
+            function drawCurveChart(){
+                var data = google.visualization.arrayToDataTable(dataCurveChart);
+
+                var options={
+                    title: 'Andamento Nazionale Covid-19: Totale Casi',
+                    curveType: 'function',
+                    legend: { position: 'bottom' }
+                };
+
+                var chart=new google.visualization.LineChart(document.getElementById('curve_chart'));
+                chart.draw(data, options);
+            }
+            //*************************************************************************************************************************//
+            
+            //****************************************************** AREA CHART *******************************************************//
+            //---------------------------------- SEZIONE DI CARICAMENTO DATI DALLA REPOSITORY GitHub ----------------------------------//
+            var dataAreaChart=[
+                ['Day','Nuovi Positivi']
+            ];
+
+            function loadAreaChartData(data){
+                for(var ir=0;ir<data.length;ir++){
+                    dataAreaChart.push([
+                        data[ir]['data'].substring(0,10),
+                        data[ir]['nuovi_positivi']
+                    ]);                
+                }
+            }
+
+            $.getJSON("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale.json",function(data){
+                loadAreaChartData(data);
+            });
+            //--------------------------------------------------- COSTRUZIONE GRAFICO -------------------------------------------------//
+            google.charts.setOnLoadCallback(drawAreaChart);
+
+            function drawAreaChart(){
+                var data=google.visualization.arrayToDataTable(dataAreaChart);
+
+                var options={
+                    title: 'Andamendo Nazionale Covid-19: Nuovi Positivi Giornalieri',
+                };
+
+                var chart = new google.visualization.AreaChart(document.getElementById('area_chart'));
+                chart.draw(data, options);
+            }
+            //*************************************************************************************************************************//
+            
+            //******************************************************* PIE CHART *******************************************************//
+            //---------------------------------- SEZIONE DI CARICAMENTO DATI DALLA REPOSITORY GitHub ----------------------------------//
+            var dataPieChart=[
+                ['Regione','Casi Totali']
+            ];
+			
+            function loadPieChartData(data){
+                for(var ir=0;ir<data.length;ir++){
+                    dataPieChart.push([
+                        data[ir]['denominazione_regione'],
+                        data[ir]['totale_casi']
+                    ]);                
+                }
+            }
+
+            $.getJSON("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-regioni-latest.json",function(data){
+                loadPieChartData(data);
+            });
+            //--------------------------------------------------- COSTRUZIONE GRAFICO -------------------------------------------------//
+            google.charts.setOnLoadCallback(drawPieChart);
+            
+            function drawPieChart(){
+        	var data=google.visualization.arrayToDataTable(dataPieChart);
+
+                var options={
+                    title: 'Andamento Regionale Covid-19: Totale Casi'
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('pie_chart'));
+                chart.draw(data, options);
+            }	
+            //*************************************************************************************************************************//	
+        </script>
+    </head>
+    <body>
+        <div id="curve_chart" style="width:900px; height:500px"></div>
+        <div id="area_chart" style="width:900px; height:500px;"></div>
+	<div id="pie_chart" style="width:900px; height:500px;"></div>
+    </body>
+</html>
