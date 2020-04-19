@@ -105,11 +105,47 @@
                 chart.draw(data, options);
             }	
             //*************************************************************************************************************************//	
+            
+            //***************************************************** DONUT CHART *******************************************************//
+            //---------------------------------- SEZIONE DI CARICAMENTO DATI DALLA REPOSITORY GitHub ----------------------------------//
+            var dataHistogramChart=[
+                ['Periodo','Decessi',{ role: "style" }],
+                ['Prima Guerra Mondiale',1052400,'#66ffff'],
+                ['Seconda Guerra Mondiale',472354,'#009999']
+            ];
+			
+            function loadHistogramChartData(data){
+                dataHistogramChart.push([
+                    'Covid-19',
+                    data[0]['deceduti'],
+                    '#99ff33'
+                ]);   
+            }
+
+            $.getJSON("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale-latest.json",function(data){
+                loadHistogramChartData(data);
+            });
+            //--------------------------------------------------- COSTRUZIONE GRAFICO -------------------------------------------------//
+            google.charts.setOnLoadCallback(drawHistogramChart);
+            
+            function drawHistogramChart(){
+        	var data=google.visualization.arrayToDataTable(dataHistogramChart);
+
+                var options = {
+                    title: 'Confronto Storico: Totali Decessi in Italia',
+                    legend: { position: 'none' }
+                };
+
+                var chart = new google.visualization.ColumnChart(document.getElementById('histogram_chart'));
+                chart.draw(data, options);
+            }	
+            //*************************************************************************************************************************//        
         </script>
     </head>
     <body>
         <div id="curve_chart" style="width:900px; height:500px"></div>
         <div id="area_chart" style="width:900px; height:500px;"></div>
 	<div id="pie_chart" style="width:900px; height:500px;"></div>
+        <div id="histogram_chart" style="width:900px; height:500px;"></div>
     </body>
 </html>
