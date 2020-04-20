@@ -65,7 +65,7 @@
                 var data=google.visualization.arrayToDataTable(dataAreaChart);
 
                 var options={
-                    title: 'Andamendo Nazionale Covid-19: Nuovi Positivi Giornalieri',
+                    title: 'Andamendo Nazionale Covid-19: Nuovi Positivi Giornalieri'
                 };
 
                 var chart = new google.visualization.AreaChart(document.getElementById('area_chart'));
@@ -106,37 +106,93 @@
             }	
             //*************************************************************************************************************************//	
             
-            //***************************************************** DONUT CHART *******************************************************//
+            //****************************************************** LINES CHART ******************************************************//
             //---------------------------------- SEZIONE DI CARICAMENTO DATI DALLA REPOSITORY GitHub ----------------------------------//
-            var dataHistogramChart=[
+            var dataLinesChart=[
+                ['Day', 'Bologna', 'Modena']
+            ];
+
+            function loadLinesChartData(data){
+                dataBologna=[];
+                dataModena=[];
+                //incapsulamento dati Provincia di Bologna
+                for(var ir=0;ir<data.length;ir++){
+                    if(data[ir]['denominazione_provincia']==='Bologna'){
+                        dataBologna.push([
+                            data[ir]['data'].substring(0,10),
+                            data[ir]['totale_casi']
+                        ]);    
+                    }            
+                }
+                //incapsulamento dati Provincia di Modena
+                for(var ir=0;ir<data.length;ir++){
+                    if(data[ir]['denominazione_provincia']==='Modena'){
+                        dataModena.push([
+                            data[ir]['totale_casi']
+                        ]);    
+                    }            
+                }
+                //incapsulamento dati nell'array generale
+                for(var ir=0;ir<dataBologna.length;ir++){
+                    dataLinesChart.push([
+                        dataBologna[ir][0],
+                        dataBologna[ir][1],
+                        dataModena[ir][0]
+                    ]);    
+                }            
+            }
+
+            $.getJSON("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-province.json",function(data){
+                loadLinesChartData(data);
+            });
+            //--------------------------------------------------- COSTRUZIONE GRAFICO -------------------------------------------------//
+            google.charts.setOnLoadCallback(drawLinesChart);
+
+            function drawLinesChart(){
+                var data=google.visualization.arrayToDataTable(dataLinesChart);
+
+                var options={
+                    title: 'Andamendo Provinciale Covid-19 (Bologna/Modena): Nuovi Positivi'
+                };
+
+                var chart = new google.visualization.LineChart(document.getElementById('lines_chart'));
+                chart.draw(data, options);
+            }
+            //*************************************************************************************************************************//
+            
+            //***************************************************** COLUMN CHART ******************************************************//
+            //---------------------------------- SEZIONE DI CARICAMENTO DATI DALLA REPOSITORY GitHub ----------------------------------//
+            var dataColumnChart=[
                 ['Periodo','Decessi',{ role: "style" }],
-                ['Prima Guerra Mondiale',1052400,'#66ffff'],
-                ['Seconda Guerra Mondiale',472354,'#009999']
+                ['Peste Nera del 1600 (stima del Manzoni)',1000000,'#cc3300'],
+                ['Prima Guerra Mondiale (Vittime Civili)',589000,'#ff9900'],
+                ['Seconda Guerra Mondiale (Vittime Civili)',153147,'#ffcc00'],
+                ['Epidemia Spagnola (1918-1920)',600000,'#ff0000']
             ];
 			
-            function loadHistogramChartData(data){
-                dataHistogramChart.push([
+            function loadColumnChartData(data){
+                dataColumnChart.push([
                     'Covid-19',
                     data[0]['deceduti'],
-                    '#99ff33'
+                    '#e6e600'
                 ]);   
             }
 
             $.getJSON("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale-latest.json",function(data){
-                loadHistogramChartData(data);
+                loadColumnChartData(data);
             });
             //--------------------------------------------------- COSTRUZIONE GRAFICO -------------------------------------------------//
-            google.charts.setOnLoadCallback(drawHistogramChart);
+            google.charts.setOnLoadCallback(drawColumnChart);
             
-            function drawHistogramChart(){
-        	var data=google.visualization.arrayToDataTable(dataHistogramChart);
+            function drawColumnChart(){
+        	var data=google.visualization.arrayToDataTable(dataColumnChart);
 
                 var options = {
                     title: 'Confronto Storico: Totali Decessi in Italia',
                     legend: { position: 'none' }
                 };
 
-                var chart = new google.visualization.ColumnChart(document.getElementById('histogram_chart'));
+                var chart = new google.visualization.ColumnChart(document.getElementById('column_chart'));
                 chart.draw(data, options);
             }	
             //*************************************************************************************************************************//        
@@ -146,6 +202,7 @@
         <div id="curve_chart" style="width:900px; height:500px"></div>
         <div id="area_chart" style="width:900px; height:500px;"></div>
 	<div id="pie_chart" style="width:900px; height:500px;"></div>
-        <div id="histogram_chart" style="width:900px; height:500px;"></div>
+        <div id="lines_chart" style="width:900px; height:500px;"></div>
+        <div id="column_chart" style="width:900px; height:500px;"></div>
     </body>
 </html>
