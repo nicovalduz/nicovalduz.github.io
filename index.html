@@ -14,7 +14,7 @@
                 for(var ir=0;ir<data.length;ir++){
                     dataCurveChart.push([
                         data[ir]['data'].substring(0,10),
-                        data[ir]['totale_casi']
+                        parseInt(data[ir]['totale_casi'])
                     ]);                
                 }
             }
@@ -120,7 +120,7 @@
                     if(data[ir]['denominazione_provincia']==='Bologna'){
                         dataBologna.push([
                             data[ir]['data'].substring(0,10),
-                            data[ir]['totale_casi']
+                            parseInt(data[ir]['totale_casi'])
                         ]);    
                     }            
                 }
@@ -128,7 +128,7 @@
                 for(var ir=0;ir<data.length;ir++){
                     if(data[ir]['denominazione_provincia']==='Modena'){
                         dataModena.push([
-                            data[ir]['totale_casi']
+                            parseInt(data[ir]['totale_casi'])
                         ]);    
                     }            
                 }
@@ -136,8 +136,8 @@
                 for(var ir=0;ir<dataBologna.length;ir++){
                     dataLinesChart.push([
                         dataBologna[ir][0],
-                        dataBologna[ir][1],
-                        dataModena[ir][0]
+                        parseInt(dataBologna[ir][1]),
+                        parseInt(dataModena[ir][0])
                     ]);    
                 }            
             }
