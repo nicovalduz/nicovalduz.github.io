@@ -50,7 +50,7 @@
                 for(var ir=0;ir<data.length;ir++){
                     dataAreaChart.push([
                         data[ir]['data'].substring(0,10),
-                        data[ir]['nuovi_positivi']
+                        parseInt(data[ir]['nuovi_positivi'])
                     ]);                
                 }
             }
@@ -83,7 +83,7 @@
                 for(var ir=0;ir<data.length;ir++){
                     dataPieChart.push([
                         data[ir]['denominazione_regione'],
-                        data[ir]['totale_casi']
+                        parseInt(data[ir]['totale_casi'])
                     ]);                
                 }
             }
@@ -119,7 +119,7 @@
                 for(var ir=0;ir<data.length;ir++){
                     if(data[ir]['denominazione_provincia']==='Bologna'){
                         dataBologna.push([
-                            data[ir]['data'].substring(0,10),
+                            data[ir]['data'],
                             parseInt(data[ir]['totale_casi'])
                         ]);    
                     }            
@@ -173,7 +173,7 @@
             function loadColumnChartData(data){
                 dataColumnChart.push([
                     'Covid-19',
-                    data[0]['deceduti'],
+                    parseInt(data[0]['deceduti']),
                     '#e6e600'
                 ]);   
             }
