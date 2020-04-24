@@ -135,7 +135,7 @@
                 //incapsulamento dati nell'array generale
                 for(var ir=0;ir<dataBologna.length;ir++){
                     dataLinesChart.push([
-                        dataBologna[ir][0],
+                        dataBologna[ir][0].substring(0,10),
                         parseInt(dataBologna[ir][1]),
                         parseInt(dataModena[ir][0])
                     ]);    
