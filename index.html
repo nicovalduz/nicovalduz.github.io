@@ -30,9 +30,9 @@
                 var data = google.visualization.arrayToDataTable(dataCurveChart);
 
                 var options={
-                    title: 'Andamento Nazionale Covid-19: Totale Casi',
-                    curveType: 'function',
-                    legend: { position: 'bottom' }
+                    title:'Andamento Nazionale Covid-19: Totale Casi',
+                    curveType:'function',
+                    legend:{position:'bottom'}
                 };
 
                 var chart=new google.visualization.LineChart(document.getElementById('curve_chart'));
@@ -65,8 +65,8 @@
                 var data=google.visualization.arrayToDataTable(dataAreaChart);
 
                 var options={
-                    title: 'Andamendo Nazionale Covid-19: Nuovi Positivi Giornalieri',
-                    legend: { position: 'bottom' }
+                    title:'Andamendo Nazionale Covid-19: Nuovi Positivi Giornalieri',
+                    legend:{position:'bottom'}
                 };
 
                 var chart = new google.visualization.AreaChart(document.getElementById('area_chart'));
@@ -99,7 +99,7 @@
         	var data=google.visualization.arrayToDataTable(dataPieChart);
 
                 var options={
-                    title: 'Andamento Regionale Covid-19: Totale Casi'
+                    title:'Andamento Regionale Covid-19: Totale Casi'
                 };
 
                 var chart = new google.visualization.PieChart(document.getElementById('pie_chart'));
@@ -110,7 +110,7 @@
             //****************************************************** LINES CHART ******************************************************//
             //---------------------------------- SEZIONE DI CARICAMENTO DATI DALLA REPOSITORY GitHub ----------------------------------//
             var dataLinesChart=[
-                ['Day', 'Bologna', 'Modena']
+                ['Day','Bologna','Modena']
             ];
 
             function loadLinesChartData(data){
@@ -153,8 +153,8 @@
                 var data=google.visualization.arrayToDataTable(dataLinesChart);
 
                 var options={
-                    title: 'Andamendo Provinciale Covid-19 (Bologna/Modena): Nuovi Positivi',
-                    legend: { position: 'bottom' }
+                    title:'Andamendo Provinciale Covid-19 (Bologna/Modena): Nuovi Positivi',
+                    legend:{position:'bottom'}
                 };
 
                 var chart = new google.visualization.LineChart(document.getElementById('lines_chart'));
@@ -189,9 +189,9 @@
             function drawColumnChart(){
         	var data=google.visualization.arrayToDataTable(dataColumnChart);
 
-                var options = {
-                    title: 'Confronto Storico: Totali Decessi in Italia',
-                    legend: { position: 'none' }
+                var options={
+                    title:'Confronto Storico: Totali Decessi in Italia',
+                    legend:{position:'none'}
                 };
 
                 var chart = new google.visualization.ColumnChart(document.getElementById('column_chart'));
@@ -223,9 +223,9 @@
             function drawDonutChart(){
         	var data=google.visualization.arrayToDataTable(dataDonutChart);
 
-                var options = {
-                    title: 'Andamendo Provinciale Covid-19: Totali Casi',
-                    pieHole: 0.4
+                var options={
+                    title:'Andamendo Provinciale Covid-19: Totali Casi',
+                    pieHole:0.4
                 };
 
                 var chart = new google.visualization.PieChart(document.getElementById('donut_chart'));
