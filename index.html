@@ -8,7 +8,7 @@
             //****************************************************** CURVE CHART ******************************************************//
             //---------------------------------- SEZIONE DI CARICAMENTO DATI DALLA REPOSITORY GitHub ----------------------------------//            
             var dataCurveChart=[
-                ['Day','Casi Totali']
+                ['Day','Total Cases']
             ];
 
             function loadCurveChartData(data){
@@ -44,7 +44,7 @@
             //****************************************************** AREA CHART *******************************************************//
             //---------------------------------- SEZIONE DI CARICAMENTO DATI DALLA REPOSITORY GitHub ----------------------------------//
             var dataAreaChart=[
-                ['Day','Nuovi Positivi']
+                ['Day','New Positives']
             ];
 
             function loadAreaChartData(data){
@@ -66,7 +66,7 @@
                 var data=google.visualization.arrayToDataTable(dataAreaChart);
 
                 var options={
-                    title:'Andamendo Nazionale Covid-19: Nuovi Positivi Giornalieri',
+                    title:'Covid-19 National Trend: New Daily Positives',
                     legend:{position:'bottom'}
                 };
 
@@ -78,7 +78,7 @@
             //******************************************************* PIE CHART *******************************************************//
             //---------------------------------- SEZIONE DI CARICAMENTO DATI DALLA REPOSITORY GitHub ----------------------------------//
             var dataPieChart=[
-                ['Regione','Casi Totali']
+                ['Region','Total Cases']
             ];
 			
             function loadPieChartData(data){
@@ -100,7 +100,7 @@
         	var data=google.visualization.arrayToDataTable(dataPieChart);
 
                 var options={
-                    title:'Andamento Regionale Covid-19: Totale Casi'
+                    title:'Covid-19 Regional Trend: Total Cases'
                 };
 
                 var chart = new google.visualization.PieChart(document.getElementById('pie_chart'));
@@ -154,7 +154,7 @@
                 var data=google.visualization.arrayToDataTable(dataLinesChart);
 
                 var options={
-                    title:'Andamendo Provinciale Covid-19 (Bologna/Modena): Nuovi Positivi',
+                    title:'Provincial Andamendo Covid-19 (Bologna/Modena): New Positives',
                     legend:{position:'bottom'}
                 };
 
@@ -166,11 +166,11 @@
             //***************************************************** COLUMN CHART ******************************************************//
             //---------------------------------- SEZIONE DI CARICAMENTO DATI DALLA REPOSITORY GitHub ----------------------------------//
             var dataColumnChart=[
-                ['Periodo','Decessi',{ role: "style" }],
-                ['Peste Nera del 1600 (stima del Manzoni)',1000000,'#cc3300'],
-                ['Prima Guerra Mondiale (Vittime Civili)',589000,'#ff9900'],
-                ['Epidemia Spagnola (1918-1920)',600000,'#ff0000'],
-                ['Seconda Guerra Mondiale (Vittime Civili)',153147,'#ffcc00']
+                ['Period','Deaths',{ role: "style" }],
+                ['Plague of 1600 (Manzoni\'s estimate)',1000000,'#cc3300'],
+                ['First World War (Civilian Victims)',589000,'#ff9900'],
+                ['Spanish Epidemic (1918-1920)',600000,'#ff0000'],
+                ['World War II (Civilian Victims)',153147,'#ffcc00']
             ];
 			
             function loadColumnChartData(data){
@@ -191,7 +191,7 @@
         	var data=google.visualization.arrayToDataTable(dataColumnChart);
 
                 var options={
-                    title:'Confronto Storico: Totali Decessi in Italia',
+                    title:'Historical comparison: Total Deaths in Italy',
                     legend:{position:'none'}
                 };
 
@@ -203,7 +203,7 @@
             //****************************************************** DONUT CHART ******************************************************//
             //---------------------------------- SEZIONE DI CARICAMENTO DATI DALLA REPOSITORY GitHub ----------------------------------//
             var dataDonutChart=[
-                ['Provincie','Casi Totali']
+                ['Provincie','Total Cases']
             ];
 			
             function loadDonutChartData(data){
@@ -225,41 +225,7 @@
         	var data=google.visualization.arrayToDataTable(dataDonutChart);
 
                 var options={
-                    title:'Andamendo Provinciale Covid-19: Totali Casi',
-                    pieHole:0.4
-                };
-
-                var chart = new google.visualization.PieChart(document.getElementById('donut_chart'));
-                chart.draw(data, options);
-            }	
-            //*************************************************************************************************************************//
-            
-            //******************************************************  CHART ******************************************************//
-            //---------------------------------- SEZIONE DI CARICAMENTO DATI DALLA REPOSITORY GitHub ----------------------------------//
-            var dataDonutChart=[
-                ['Provincie','Casi Totali']
-            ];
-			
-            function loadDonutChartData(data){
-                for(var ir=0;ir<data.length;ir++){
-                    dataDonutChart.push([
-                        data[ir]['denominazione_provincia'],
-                        parseInt(data[ir]['totale_casi'])
-                    ]);                
-                }  
-            }
-
-            $.getJSON("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-province-latest.json",function(data){
-                loadDonutChartData(data);
-            });
-            //--------------------------------------------------- COSTRUZIONE GRAFICO -------------------------------------------------//
-            google.charts.setOnLoadCallback(drawDonutChart);
-            
-            function drawDonutChart(){
-        	var data=google.visualization.arrayToDataTable(dataDonutChart);
-
-                var options={
-                    title:'Andamendo Provinciale Covid-19: Totali Casi',
+                    title:'Provincial Trend Covid-19: Total Cases',
                     pieHole:0.4
                 };
 
@@ -270,7 +236,7 @@
         </script>
     </head>
     <body>
-        <h1 style="font-family:arial;text-align:center;margin-top:40px;">Progetto Interdisciplinare Maturit&agrave; 2020 - Valdiserri Nicol&ograve;</h1>
+        <h1 style="font-family:arial;text-align:center;margin-top:40px;">Interdisciplinary Project - High School Diploma 2020<br>Valdiserri Nicol&ograve;</h1>
         <div class="row">
             <div style="width:50%;"><a href="curveChart.html"><div id="curve_chart" style="height:500px"></div></a></div>
             <div style="width:50%;"><a href="areaChart.html"><div id="area_chart" style="height:500px"></div></a></div>

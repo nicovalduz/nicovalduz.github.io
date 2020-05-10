@@ -1,0 +1,56 @@
+<html>
+    <head>
+        <title>Column Chart</title>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/solid.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/fontawesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/brands.min.css">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript">
+            //***************************************************** COLUMN CHART ******************************************************//
+            //---------------------------------- SEZIONE DI CARICAMENTO DATI DALLA REPOSITORY GitHub ----------------------------------//
+            var dataColumnChart=[
+                ['Period','Deaths',{ role: "style" }],
+                ['Plague of 1600 (Manzoni\'s estimate)',1000000,'#cc3300'],
+                ['First World War (Civilian Victims)',589000,'#ff9900'],
+                ['Spanish Epidemic (1918-1920)',600000,'#ff0000'],
+                ['World War II (Civilian Victims)',153147,'#ffcc00']
+            ];
+			
+            function loadColumnChartData(data){
+                dataColumnChart.push([
+                    'Covid-19',
+                    parseInt(data[0]['deceduti']),
+                    '#e6e600'
+                ]);   
+            }
+
+            $.getJSON("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale-latest.json",function(data){
+                loadColumnChartData(data);
+            });
+            //--------------------------------------------------- COSTRUZIONE GRAFICO -------------------------------------------------//
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawColumnChart);
+            
+            function drawColumnChart(){
+        	var data=google.visualization.arrayToDataTable(dataColumnChart);
+
+                var options={
+                    title:'Historical comparison: Total Deaths in Italy',
+                    legend:{position:'none'}
+                };
+
+                var chart = new google.visualization.ColumnChart(document.getElementById('column_chart'));
+                chart.draw(data, options);
+            }	
+            //*************************************************************************************************************************//
+        </script>
+    </head>
+    <body>
+        <h1 style="font-family:arial;text-align:center;margin-top:40px;">Interdisciplinary Project - High School Diploma 2020<br>Valdiserri Nicol&ograve;</h1>
+        <h2 style="font-family:arial;text-align:center;margin-top:40px;">Column Chart</h2>
+        <a href="index.html"><i style="font-size:40px;margin-left:113px;" class="fas fa-long-arrow-alt-left"></i></a>
+        <div id="column_chart" style="width:100%;height:500px"></div>
+    </body>
+</html>

@@ -1,0 +1,74 @@
+<html>
+    <head>
+        <title>Curve Chart</title>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/solid.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/fontawesome.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/brands.min.css">
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script type="text/javascript">
+            //****************************************************** LINES CHART ******************************************************//
+            //---------------------------------- SEZIONE DI CARICAMENTO DATI DALLA REPOSITORY GitHub ----------------------------------//
+            var dataLinesChart=[
+                ['Day','Bologna','Modena']
+            ];
+
+            function loadLinesChartData(data){
+                dataBologna=[];
+                dataModena=[];
+                //incapsulamento dati Provincia di Bologna
+                for(var ir=0;ir<data.length;ir++){
+                    if(data[ir]['denominazione_provincia']==='Bologna'){
+                        dataBologna.push([
+                            data[ir]['data'],
+                            parseInt(data[ir]['totale_casi'])
+                        ]);    
+                    }            
+                }
+                //incapsulamento dati Provincia di Modena
+                for(var ir=0;ir<data.length;ir++){
+                    if(data[ir]['denominazione_provincia']==='Modena'){
+                        dataModena.push([
+                            parseInt(data[ir]['totale_casi'])
+                        ]);    
+                    }            
+                }
+                //incapsulamento dati nell'array generale
+                for(var ir=0;ir<dataBologna.length;ir++){
+                    dataLinesChart.push([
+                        dataBologna[ir][0].substring(0,10),
+                        parseInt(dataBologna[ir][1]),
+                        parseInt(dataModena[ir][0])
+                    ]);    
+                }            
+            }
+
+            $.getJSON("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-province.json",function(data){
+                loadLinesChartData(data);
+            });
+            //--------------------------------------------------- COSTRUZIONE GRAFICO -------------------------------------------------//
+            google.charts.load('current', {'packages':['corechart']});
+            google.charts.setOnLoadCallback(drawLinesChart);
+
+            function drawLinesChart(){
+                var data=google.visualization.arrayToDataTable(dataLinesChart);
+
+                var options={
+                    title:'Provincial Andamendo Covid-19 (Bologna/Modena): New Positives',
+                    legend:{position:'bottom'}
+                };
+
+                var chart = new google.visualization.LineChart(document.getElementById('lines_chart'));
+                chart.draw(data, options);
+            }
+            //*************************************************************************************************************************//
+        </script>
+    </head>
+    <body>
+        <h1 style="font-family:arial;text-align:center;margin-top:40px;">Interdisciplinary Project - High School Diploma 2020<br>Valdiserri Nicol&ograve;</h1>
+        <h2 style="font-family:arial;text-align:center;margin-top:40px;">Lines Chart</h2>
+        <a href="index.html"><i style="font-size:40px;margin-left:113px;" class="fas fa-long-arrow-alt-left"></i></a>
+        <div id="lines_chart" style="width:100%;height:500px"></div>
+    </body>
+</html>

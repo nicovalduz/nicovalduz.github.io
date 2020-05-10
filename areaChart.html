@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Curve Chart</title>
+        <title>Area Chart</title>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/solid.min.css">
@@ -8,38 +8,37 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/brands.min.css">
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script type="text/javascript">
-            //****************************************************** CURVE CHART ******************************************************//
-            //---------------------------------- SEZIONE DI CARICAMENTO DATI DALLA REPOSITORY GitHub ----------------------------------//            
-            var dataCurveChart=[
-                ['Day','Total Cases']
+            //****************************************************** AREA CHART *******************************************************//
+            //---------------------------------- SEZIONE DI CARICAMENTO DATI DALLA REPOSITORY GitHub ----------------------------------//
+            var dataAreaChart=[
+                ['Day','New Positives']
             ];
 
-            function loadCurveChartData(data){
+            function loadAreaChartData(data){
                 for(var ir=0;ir<data.length;ir++){
-                    dataCurveChart.push([
+                    dataAreaChart.push([
                         data[ir]['data'].substring(0,10),
-                        parseInt(data[ir]['totale_casi'])
+                        parseInt(data[ir]['nuovi_positivi'])
                     ]);                
                 }
             }
 
             $.getJSON("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-andamento-nazionale.json",function(data){
-                loadCurveChartData(data);
+                loadAreaChartData(data);
             });
             //--------------------------------------------------- COSTRUZIONE GRAFICO -------------------------------------------------//
             google.charts.load('current', {'packages':['corechart']});
-            google.charts.setOnLoadCallback(drawCurveChart);
+            google.charts.setOnLoadCallback(drawAreaChart);
 
-            function drawCurveChart(){
-                var data = google.visualization.arrayToDataTable(dataCurveChart);
+            function drawAreaChart(){
+                var data=google.visualization.arrayToDataTable(dataAreaChart);
 
                 var options={
-                    title:'Covid-19 National Trend: Total Cases',
-                    curveType:'function',
+                    title:'Covid-19 National Trend: New Daily Positives',
                     legend:{position:'bottom'}
                 };
 
-                var chart=new google.visualization.LineChart(document.getElementById('curve_chart'));
+                var chart = new google.visualization.AreaChart(document.getElementById('area_chart'));
                 chart.draw(data, options);
             }
             //*************************************************************************************************************************//
@@ -47,8 +46,8 @@
     </head>
     <body>
         <h1 style="font-family:arial;text-align:center;margin-top:40px;">Interdisciplinary Project - High School Diploma 2020<br>Valdiserri Nicol&ograve;</h1>
-        <h2 style="font-family:arial;text-align:center;margin-top:40px;">Curve Chart</h2>
+        <h2 style="font-family:arial;text-align:center;margin-top:40px;">Area Chart</h2>
         <a href="index.html"><i style="font-size:40px;margin-left:113px;" class="fas fa-long-arrow-alt-left"></i></a>
-        <div id="curve_chart" style="width:100%;height:500px"></div>
+        <div id="area_chart" style="width:100%;height:500px"></div>
     </body>
 </html>
