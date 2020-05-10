@@ -198,6 +198,40 @@
                 chart.draw(data, options);
             }	
             //*************************************************************************************************************************//        
+            
+            //****************************************************** DONUT CHART ******************************************************//
+            //---------------------------------- SEZIONE DI CARICAMENTO DATI DALLA REPOSITORY GitHub ----------------------------------//
+            var dataDonutChart=[
+                ['Provincie','Casi Totali']
+            ];
+			
+            function loadDonutChartData(data){
+                for(var ir=0;ir<data.length;ir++){
+                    dataDonutChart.push([
+                        data[ir]['denominazione_provincia'],
+                        parseInt(data[ir]['totale_casi'])
+                    ]);                
+                }  
+            }
+
+            $.getJSON("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-province-latest.json",function(data){
+                loadDonutChartData(data);
+            });
+            //--------------------------------------------------- COSTRUZIONE GRAFICO -------------------------------------------------//
+            google.charts.setOnLoadCallback(drawDonutChart);
+            
+            function drawDonutChart(){
+        	var data=google.visualization.arrayToDataTable(dataDonutChart);
+
+                var options = {
+                    title: 'Andamendo Provinciale Covid-19: Totali Casi',
+                    pieHole: 0.4
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('donut_chart'));
+                chart.draw(data, options);
+            }	
+            //*************************************************************************************************************************//  
         </script>
     </head>
     <body>
@@ -207,5 +241,6 @@
 	<div id="pie_chart" style="width:100%;height:500px;"></div>
         <div id="lines_chart" style="width:100%;height:500px;"></div>
         <div id="column_chart" style="width:100%;height:500px;"></div>
+        <div id="donut_chart" style="width:100%;height:500px;"></div>
     </body>
 </html>
