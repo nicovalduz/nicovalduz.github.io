@@ -1,6 +1,7 @@
 <html>
     <head>
         <title>Project Covid-19</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" crossorigin="anonymous">
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script type="text/javascript">
@@ -231,16 +232,52 @@
                 var chart = new google.visualization.PieChart(document.getElementById('donut_chart'));
                 chart.draw(data, options);
             }	
-            //*************************************************************************************************************************//  
+            //*************************************************************************************************************************//
+            
+            //******************************************************  CHART ******************************************************//
+            //---------------------------------- SEZIONE DI CARICAMENTO DATI DALLA REPOSITORY GitHub ----------------------------------//
+            var dataDonutChart=[
+                ['Provincie','Casi Totali']
+            ];
+			
+            function loadDonutChartData(data){
+                for(var ir=0;ir<data.length;ir++){
+                    dataDonutChart.push([
+                        data[ir]['denominazione_provincia'],
+                        parseInt(data[ir]['totale_casi'])
+                    ]);                
+                }  
+            }
+
+            $.getJSON("https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/dpc-covid19-ita-province-latest.json",function(data){
+                loadDonutChartData(data);
+            });
+            //--------------------------------------------------- COSTRUZIONE GRAFICO -------------------------------------------------//
+            google.charts.setOnLoadCallback(drawDonutChart);
+            
+            function drawDonutChart(){
+        	var data=google.visualization.arrayToDataTable(dataDonutChart);
+
+                var options={
+                    title:'Andamendo Provinciale Covid-19: Totali Casi',
+                    pieHole:0.4
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('donut_chart'));
+                chart.draw(data, options);
+            }	
+            //*************************************************************************************************************************//
         </script>
     </head>
     <body>
         <h1 style="font-family:arial;text-align:center;margin-top:40px;">Progetto Interdisciplinare Maturit&agrave; 2020 - Valdiserri Nicol&ograve;</h1>
-        <div id="curve_chart" style="width:100%;height:500px"></div>
-        <div id="area_chart" style="width:100%;height:500px;"></div>
-	<div id="pie_chart" style="width:100%;height:500px;"></div>
-        <div id="lines_chart" style="width:100%;height:500px;"></div>
-        <div id="column_chart" style="width:100%;height:500px;"></div>
-        <div id="donut_chart" style="width:100%;height:500px;"></div>
+        <div class="row">
+        <div id="curve_chart" style="width:50%;height:500px"></div>
+        <div id="area_chart" style="width:50%;height:500px;"></div>
+	<div id="pie_chart" style="width:50%;height:500px;"></div>
+        <div id="lines_chart" style="width:50%;height:500px;"></div>
+        <div id="column_chart" style="width:50%;height:500px;"></div>
+        <div id="donut_chart" style="width:50%;height:500px;"></div>
+        </div> 
     </body>
 </html>
