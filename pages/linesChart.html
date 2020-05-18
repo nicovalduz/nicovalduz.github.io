@@ -55,7 +55,7 @@
                 var data=google.visualization.arrayToDataTable(dataLinesChart);
 
                 var options={
-                    title:'Provincial Trend Covid-19 (Bologna/Modena): New Positives',
+                    title:'Provincial Trend Covid-19: New Positives',
                     legend:{position:'bottom'}
                 };
 
@@ -69,6 +69,20 @@
         <h1 class="text-center my-4">Interdisciplinary Project - High School Diploma 2020<br>Valdiserri Nicol&ograve;</h1>
         <h2 class="text-center mt-4">Lines Chart</h2>
         <a href="../index.html"><h1><i class="fas fa-long-arrow-alt-left ml-5"></i></h1></a>
-        <div id="lines_chart" style="width:100%;height:500px"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <p class="text-justify">
+                        Il grafico lineare è principalmente adatto quando si desidera visualizzare le tendenze e i movimenti nel corso
+                        del tempo, nelle situazioni in cui i valori sono distanziati in modo omogeneo (ad esempio distribuiti in mesi, trimestri o anni).<br>
+                        Il sistema costituito dalla coppia dei due assi orientati (e implicitamente dall'origine) consente di individuare ogni punto del piano
+                        con una coppia di numeri reali chiamati rispettivamente ascissa e ordinata del punto, i cui valori assoluti rappresentano le distanze
+                        del punto rispettivamente dall'asse y (ordinata) e dall'asse x (ascissa).<br>
+                        Di seguito, troviamo la rappresentazione grafica dei casi totali di nuovi positivi giornalieri nelle province emiliane di Bologna e Modena, poste a confronto.
+                    </p>
+                    <div id="lines_chart" style="width:100%;height:500px"></div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>
